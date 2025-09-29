@@ -1,75 +1,31 @@
 const express = require("express");
+const categoriesController = require("../../controllers/categoriesController");
 const router = express.Router();
-const Categorie = require("../../models/Categorie");
 
-// GET /api/categories - Récupérer toutes les catégories
-router.get("/", async (req, res) => {
-  try {
-    const categories = await Categorie.getAll();
-    res.json({
-      success: true,
-      data: categories,
-    });
-  } catch (error) {
-    console.error("Erreur lors de la récupération des catégories:", error);
-    res.status(500).json({
-      success: false,
-      message: "Erreur serveur lors de la récupération des catégories",
-    });
-  }
-});
+// GET /api/categories - Récupérer toutes les catégoriesconst categoriesController = require('../../controllers/categoriesController');const router = express.Router();
 
-// GET /api/categories/:id - Récupérer une catégorie par ID
-router.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const categorie = await Categorie.getById(id);
+router.get("/", categoriesController.getAllCategories);
 
-    if (!categorie) {
-      return res.status(404).json({
-        success: false,
-        message: "Catégorie non trouvée",
-      });
-    }
+module.exports = router;
+// GET /api/categories - Récupérer toutes les catégoriesconst categoriesController = require("../../controllers/categoriesController");
 
-    res.json({
-      success: true,
-      data: categorie,
-    });
-  } catch (error) {
-    console.error("Erreur lors de la récupération de la catégorie:", error);
-    res.status(500).json({
-      success: false,
-      message: "Erreur serveur",
-    });
-  }
-});
+router.get("/", categoriesController.getAllCategories);
+
+// GET /api/categories - Récupérer toutes les catégories// GET /api/categories - Récupérer toutes les catégories
+
+module.exports = router;
+router.get("/", categoriesController.getAllCategories);
+
+module.exports = router; // GET /api/categories/:id - Récupérer une catégorie par ID
+router.get("/:id", CategoriesController.getCategoryById);
 
 // POST /api/categories - Créer une nouvelle catégorie
-router.post("/", async (req, res) => {
-  try {
-    const { nom_categorie } = req.body;
+router.post("/", CategoriesController.createCategory);
 
-    if (!nom_categorie) {
-      return res.status(400).json({
-        success: false,
-        message: "Le nom de la catégorie est requis",
-      });
-    }
+// PUT /api/categories/:id - Mettre à jour une catégorie
+router.put("/:id", CategoriesController.updateCategory);
 
-    const newCategorieId = await Categorie.create(nom_categorie);
-    res.status(201).json({
-      success: true,
-      message: "Catégorie créée avec succès",
-      data: { id: newCategorieId, nom_categorie },
-    });
-  } catch (error) {
-    console.error("Erreur lors de la création de la catégorie:", error);
-    res.status(500).json({
-      success: false,
-      message: "Erreur serveur",
-    });
-  }
-});
+// DELETE /api/categories/:id - Supprimer une catégorie
+router.delete("/:id", CategoriesController.deleteCategory);
 
 module.exports = router;

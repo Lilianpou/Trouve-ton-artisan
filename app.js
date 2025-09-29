@@ -1,4 +1,3 @@
-var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
@@ -8,7 +7,6 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
 // Routes API
-var categoriesRouter = require("./routes/api/categories");
 var artisansRouter = require("./routes/api/artisans");
 
 var app = express();
@@ -27,12 +25,13 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 // Routes API
-app.use("/api/categories", categoriesRouter);
 app.use("/api/artisans", artisansRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
 });
 
 // error handler
