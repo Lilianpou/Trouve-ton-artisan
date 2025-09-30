@@ -1,5 +1,53 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .home-container
+    
+    // Section Comment trouver mon artisan
+    section.how-to-section
+      .container
+        .how-to-content
+          .how-to-text
+            h2.section-title Comment trouver mon artisan ?
+            ol.steps-list
+              li
+                strong 1. Choisir la catégorie d'artisanat dans le menu.
+              li
+                strong 2. Choisir un artisan.
+              li
+                strong 3. Le contacter via le formulaire de contact.
+              li
+                strong 4. Une réponse sera apportée sous 48h.
+    
+    // Section Les trois artisans du mois
+    section.featured-artisans
+      .container
+        h2.section-title.center Les trois artisans du mois
+        
+        .artisans-grid
+          .artisan-card
+            .card-content
+              h3.artisan-name Nom
+              .rating
+                span.stars ★★★★★
+                span.note Note
+              p.specialty Spécialité
+              p.location Localisation
+          
+          .artisan-card
+            .card-content
+              h3.artisan-name Nom
+              .rating
+                span.stars ★★★★★
+                span.note Note
+              p.specialty Spécialité
+              p.location Localisation
+          
+          .artisan-card
+            .card-content
+              h3.artisan-name Nom
+              .rating
+                span.stars ★★★★★
+                span.note Note
+              p.specialty Spécialité
+              p.location Localisation

@@ -1,7 +1,51 @@
 doctype html
-html
+html(lang="fr")
   head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    header.header
+      .container
+        .header-content
+          .logo
+            a(href="/")
+              h1.logo-text
+                | Trouve ton artisan !
+                small.region Avec la région Auvergne-Rhône-Alpes
+          
+          nav.main-nav
+            ul.nav-list
+              li: a(href="/category/Alimentation") Alimentation
+              li: a(href="/category/Fabrication") Fabrication
+              li: a(href="/category/Services") Services
+              li: a(href="/category/Bâtiment") Bâtiment
+          
+          .search-bar
+            form.search-form(action="/search", method="GET")
+              input.search-input(type="text", name="q", placeholder="Rechercher un artisan...")
+              button.search-btn(type="submit")
+                span 🔍
+
+    main.main-content
+      block content
+
+    footer.footer
+      .container
+        .footer-content
+          .footer-links
+            ul.legal-links
+              li: a(href="/mentions-legales") mentions légales
+              li: a(href="/donnees-personnelles") données personnelles
+              li: a(href="/accessibilite") accessibilité
+              li: a(href="/cookies") cookies
+          
+          .footer-contact
+            .contact-info
+              p 101 cours Charlemagne
+              p CS 20033
+              p 69269 LYON CEDEX 02
+              p France
+              p
+                strong +33 (0)4 26 73 40 00
