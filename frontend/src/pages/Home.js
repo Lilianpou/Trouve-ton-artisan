@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO";
 
 function Home() {
   const [artisans, setArtisans] = useState([]);
@@ -92,6 +93,12 @@ function Home() {
   };
   return (
     <div className="home-page">
+      <SEO
+        title="Accueil"
+        description="Trouvez facilement un artisan qualifié en Auvergne-Rhône-Alpes. Découvrez nos artisans dans les domaines de l'alimentation, fabrication, services et bâtiment."
+        keywords="artisan, Auvergne-Rhône-Alpes, alimentation, fabrication, services, bâtiment, artisanat, région"
+        url="https://trouve-ton-artisan.fr/"
+      />
       <Container className="py-5">
         {/* Section Comment trouver mon artisan */}
         <Row className="mb-5">

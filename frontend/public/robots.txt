@@ -1,3 +1,15 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap
+Sitemap: https://trouve-ton-artisan.fr/sitemap.xml
+
+# Crawl-delay pour éviter la surcharge
+Crawl-delay: 1
+
+# Bloque les fichiers sensibles
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /build/
+Disallow: /node_modules/

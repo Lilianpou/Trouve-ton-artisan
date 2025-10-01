@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-bootstrap";
 import { useParams, Link } from "react-router-dom";
+import SEO from "../components/SEO";
 
 function ArtisanDetail() {
   const { id } = useParams();
@@ -147,6 +148,17 @@ function ArtisanDetail() {
 
   return (
     <Container className="py-4">
+      <SEO
+        title={`${artisan.artisan_nom} - ${artisan.specialite}`}
+        description={`Découvrez ${artisan.artisan_nom}, ${
+          artisan.specialite
+        } à ${artisan.ville}. Note: ${
+          artisan.note
+        }/5. ${artisan.a_propos.substring(0, 120)}...`}
+        keywords={`${artisan.artisan_nom}, ${artisan.specialite}, ${artisan.ville}, artisan, ${artisan.categorie}, Auvergne-Rhône-Alpes`}
+        url={`https://trouve-ton-artisan.fr/artisans/${artisan.id_artisan}`}
+        type="profile"
+      />
       {/* En-tête avec informations principales */}
       <Row className="mb-4">
         <Col lg={8}>

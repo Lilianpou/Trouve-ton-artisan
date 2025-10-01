@@ -1,8 +1,16 @@
-import { Container, Row, Col } from "react-bootstrap";
+import React from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import SEO from "../components/SEO";
 
 function NotFound() {
   return (
     <Container className="py-5">
+      <SEO
+        title="Page non trouvée - Erreur 404"
+        description="La page que vous recherchez est introuvable. Retournez à l'accueil pour découvrir nos artisans qualifiés en Auvergne-Rhône-Alpes."
+        url="https://trouve-ton-artisan.fr/404"
+      />
       <Row className="justify-content-center">
         <Col lg={8} className="text-center">
           <h1 className="text-dark mb-4" style={{ fontSize: "2.5rem" }}>
