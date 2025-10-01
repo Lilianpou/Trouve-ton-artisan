@@ -1,0 +1,58 @@
+// Variables
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$white: #ffffff;
+
+// Page d'accueil
+.home-page {
+  background-color: #f8f9fa;
+  min-height: 80vh;
+}
+
+// Styles pour les étapes
+.step-list {
+  .step-item {
+    margin-bottom: 1.5rem;
+    
+    .step-number {
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Styles pour les cartes d'artisans
+.artisan-card {
+  transition: transform 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+}
+
+// Styles pour les étoiles
+.star-rating {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .step-list {
+    .step-item {
+      margin-bottom: 1rem;
+      
+      .step-number {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+    }
+  }
+}

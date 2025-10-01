@@ -1,0 +1,34 @@
+.App {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+/* Styles personnalisés pour l'application */
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+/* Style pour les cartes */
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Style pour les liens dans le footer */
+footer a {
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Style pour le hero section */
+.bg-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
