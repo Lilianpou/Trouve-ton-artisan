@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import ArtisansPage from "./pages/ArtisansPage";
+import ArtisanDetail from "./pages/ArtisanDetail";
+import NotFound from "./pages/NotFound";
 import MentionsLegales from "./pages/MentionsLegales";
 import DonneesPersonnelles from "./pages/DonneesPersonnelles";
 import Accessibilite from "./pages/Accessibilite";
@@ -20,14 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/artisans" element={<ArtisansPage />} />
-            <Route
-              path="/artisans/:id"
-              element={
-                <div className="container py-5">
-                  <h1>Page artisan détaillée (à implémenter)</h1>
-                </div>
-              }
-            />
+            <Route path="/artisans/:id" element={<ArtisanDetail />} />
             <Route
               path="/categories"
               element={
@@ -43,14 +38,7 @@ function App() {
             />
             <Route path="/cookies" element={<Cookies />} />
             <Route path="/accessibilite" element={<Accessibilite />} />
-            <Route
-              path="*"
-              element={
-                <div className="container py-5">
-                  <h1>Page 404 - Page non trouvée</h1>
-                </div>
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

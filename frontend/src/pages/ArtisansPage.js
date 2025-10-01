@@ -1,167 +1,187 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Form,
-  Spinner,
-} from "react-bootstrap";
+import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import { Link, useSearchParams } from "react-router-dom";
-import { artisansService, categoriesService } from "../services/api";
 
 function ArtisansPage() {
   const [artisans, setArtisans] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [selectedCategory, setSelectedCategory] = useState(
-    searchParams.get("category") || ""
-  );
+  const [searchParams] = useSearchParams();
+  const [filteredArtisans, setFilteredArtisans] = useState([]);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await categoriesService.getAllCategories();
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Erreur lors du chargement des catégories:", error);
+  // Fonction pour afficher les étoiles selon la note
+  const renderStars = (note) => {
+    const stars = [];
+    const rating = parseFloat(note) || 0;
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(
+          <span key={i} className="text-warning">
+            ★
+          </span>
+        );
+      } else {
+        stars.push(
+          <span key={i} className="text-muted">
+            ☆
+          </span>
+        );
       }
-    };
-
-    fetchCategories();
-  }, []);
+    }
+    return stars;
+  };
 
   useEffect(() => {
     const fetchArtisans = async () => {
       setLoading(true);
       try {
-        let response = await artisansService.getAllArtisans();
-        let filteredArtisans = response.data;
-
-        // Filtrer par catégorie si sélectionnée
-        if (selectedCategory) {
-          filteredArtisans = filteredArtisans.filter(
-            (artisan) =>
-              artisan.categorie ===
-              categories.find((cat) => cat.id === parseInt(selectedCategory))
-                ?.name
-          );
+        const response = await fetch("http://localhost:4000/api/artisans");
+        if (!response.ok) {
+          throw new Error("Erreur lors du chargement des artisans");
         }
-
-        // Filtrer par recherche si un terme est fourni
-        const searchTerm = searchParams.get("search");
-        if (searchTerm) {
-          filteredArtisans = filteredArtisans.filter((artisan) =>
-            (artisan.nom || artisan.name || "")
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase())
-          );
-        }
-
-        setArtisans(filteredArtisans);
+        const data = await response.json();
+        const artisansData = data.data || data;
+        setArtisans(artisansData);
+        setFilteredArtisans(artisansData);
       } catch (error) {
         console.error("Erreur lors du chargement des artisans:", error);
         setArtisans([]);
+        setFilteredArtisans([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchArtisans();
-  }, [selectedCategory, searchParams, categories]);
+  }, []);
 
-  const handleCategoryChange = (e) => {
-    const categoryId = e.target.value;
-    setSelectedCategory(categoryId);
+  useEffect(() => {
+    // Filtrer les artisans selon les paramètres de recherche
+    let filtered = [...artisans];
 
-    if (categoryId) {
-      setSearchParams({ category: categoryId });
+    // Filtrer par terme de recherche
+    const searchTerm = searchParams.get("search");
+    if (searchTerm) {
+      filtered = filtered.filter(
+        (artisan) =>
+          artisan.artisan_nom
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          artisan.specialite.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          artisan.ville.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    // Filtrer par catégorie - utiliser la colonne 'categorie' de la base de données
+    const category = searchParams.get("category");
+    if (category) {
+      filtered = filtered.filter(
+        (artisan) =>
+          artisan.categorie &&
+          artisan.categorie.toLowerCase() === category.toLowerCase()
+      );
+    }
+
+    setFilteredArtisans(filtered);
+
+    // Debugging: afficher les résultats du filtrage
+    console.log("Paramètre category:", category);
+    console.log("Artisans filtrés:", filtered);
+    console.log("Tous les artisans:", artisans);
+  }, [artisans, searchParams]);
+
+  const getPageTitle = () => {
+    const searchTerm = searchParams.get("search");
+    const category = searchParams.get("category");
+
+    if (searchTerm) {
+      return `Résultats de recherche pour "${searchTerm}"`;
+    } else if (category) {
+      return `Artisans - ${category}`;
     } else {
-      setSearchParams({});
+      return "Tous nos artisans";
     }
   };
 
   return (
-    <Container>
+    <Container className="py-4">
       <Row className="mb-4">
         <Col>
-          <h1>Nos Artisans</h1>
-          <p className="lead">Découvrez tous nos artisans qualifiés</p>
-          {searchParams.get("search") && (
-            <div className="alert alert-info">
-              <strong>Résultats de recherche pour :</strong> "
-              {searchParams.get("search")}"
-            </div>
-          )}
+          <h1 className="text-primary">{getPageTitle()}</h1>
+          <p className="text-muted">
+            {filteredArtisans.length} artisan
+            {filteredArtisans.length > 1 ? "s" : ""} trouvé
+            {filteredArtisans.length > 1 ? "s" : ""}
+          </p>
         </Col>
       </Row>
 
-      {/* Filtres */}
-      <Row className="mb-4">
-        <Col md={6}>
-          <Form.Group>
-            <Form.Label>Filtrer par catégorie :</Form.Label>
-            <Form.Select
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-            >
-              <option value="">Toutes les catégories</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              ))}
-            </Form.Select>
-          </Form.Group>
-        </Col>
-      </Row>
-
-      {/* Liste des artisans */}
       {loading ? (
         <div className="text-center py-5">
-          <Spinner animation="border" role="status">
+          <Spinner animation="border" role="status" className="text-primary">
             <span className="visually-hidden">Chargement...</span>
           </Spinner>
+          <p className="mt-2">Chargement des artisans...</p>
         </div>
-      ) : artisans.length === 0 ? (
+      ) : filteredArtisans.length === 0 ? (
         <div className="text-center py-5">
-          <h3>Aucun artisan trouvé</h3>
+          <h3 className="text-muted">Aucun artisan trouvé</h3>
           <p>Essayez de modifier vos critères de recherche.</p>
+          <Link to="/" className="btn btn-primary">
+            Retour à l'accueil
+          </Link>
         </div>
       ) : (
         <Row>
-          {artisans.map((artisan) => (
-            <Col md={6} lg={4} className="mb-4" key={artisan.id}>
-              <Card className="h-100">
-                <Card.Body className="d-flex flex-column">
-                  <Card.Title>{artisan.name}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    {artisan.specialty}
-                  </Card.Subtitle>
-                  <Card.Text className="flex-grow-1">
-                    <strong>Localisation :</strong> {artisan.location}
-                    <br />
-                    <strong>Note :</strong>{" "}
-                    {artisan.rating ? `${artisan.rating}/5` : "Non évalué"}
-                    <br />
-                    {artisan.description && (
-                      <>
-                        <strong>Description :</strong>{" "}
-                        {artisan.description.substring(0, 100)}
-                        {artisan.description.length > 100 && "..."}
-                      </>
-                    )}
-                  </Card.Text>
-                  <div className="mt-auto">
-                    <Link to={`/artisans/${artisan.id}`}>
-                      <Button variant="primary" className="w-100">
-                        Voir le profil
-                      </Button>
-                    </Link>
-                  </div>
-                </Card.Body>
+          {filteredArtisans.map((artisan) => (
+            <Col md={6} lg={4} className="mb-4" key={artisan.id_artisan}>
+              <Card
+                className="h-100 shadow-sm border-0"
+                style={{ cursor: "pointer", transition: "transform 0.2s" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.transform = "translateY(-5px)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.transform = "translateY(0)")
+                }
+              >
+                <Link
+                  to={`/artisans/${artisan.id_artisan}`}
+                  className="text-decoration-none text-dark"
+                >
+                  <Card.Body className="d-flex flex-column p-4">
+                    {/* Nom de l'artisan */}
+                    <Card.Title className="text-primary mb-3 h5">
+                      {artisan.artisan_nom}
+                    </Card.Title>
+
+                    {/* Note avec étoiles */}
+                    <div className="mb-3">
+                      <div className="d-flex align-items-center">
+                        <div className="me-2">{renderStars(artisan.note)}</div>
+                        <span className="text-muted small">
+                          ({artisan.note}/5)
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Spécialité */}
+                    <Card.Text className="mb-2">
+                      <strong className="text-secondary">Spécialité :</strong>
+                      <br />
+                      <span className="badge bg-light text-dark border">
+                        {artisan.specialite}
+                      </span>
+                    </Card.Text>
+
+                    {/* Localisation */}
+                    <Card.Text className="mb-0 mt-auto">
+                      <strong className="text-secondary">Localisation :</strong>
+                      <br />
+                      <span className="text-muted">📍 {artisan.ville}</span>
+                    </Card.Text>
+                  </Card.Body>
+                </Link>
               </Card>
             </Col>
           ))}

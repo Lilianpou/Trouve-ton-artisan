@@ -12,9 +12,6 @@ function PageEnConstruction({ title }) {
             <p className="text-muted">
               Cette page sera remplie plus tard par un cabinet spécialisé.
             </p>
-            <div className="spinner-border text-primary" role="status">
-              <span className="visually-hidden">Chargement...</span>
-            </div>
           </div>
         </Col>
       </Row>
