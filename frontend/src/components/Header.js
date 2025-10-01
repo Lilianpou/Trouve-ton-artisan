@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Navbar,
   Nav,
@@ -8,8 +8,21 @@ import {
   Button,
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/artisans?search=${encodeURIComponent(searchTerm.trim())}`);
+    } else {
+      navigate("/artisans");
+    }
+  };
+
   return (
     <Navbar
       bg="white"
@@ -41,37 +54,39 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <LinkContainer
-              to={{ pathname: "/artisans", search: "?category=4" }}
+              to={{ pathname: "/artisans", search: "?category=Alimentation" }}
             >
               <Nav.Link className="mx-2 text-dark fw-normal">
                 Alimentation
               </Nav.Link>
             </LinkContainer>
             <LinkContainer
-              to={{ pathname: "/artisans", search: "?category=3" }}
+              to={{ pathname: "/artisans", search: "?category=Fabrication" }}
             >
               <Nav.Link className="mx-2 text-dark fw-normal">
                 Fabrication
               </Nav.Link>
             </LinkContainer>
             <LinkContainer
-              to={{ pathname: "/artisans", search: "?category=2" }}
+              to={{ pathname: "/artisans", search: "?category=Services" }}
             >
               <Nav.Link className="mx-2 text-dark fw-normal">Services</Nav.Link>
             </LinkContainer>
             <LinkContainer
-              to={{ pathname: "/artisans", search: "?category=1" }}
+              to={{ pathname: "/artisans", search: "?category=Bâtiment" }}
             >
               <Nav.Link className="mx-2 text-dark fw-normal">Bâtiment</Nav.Link>
             </LinkContainer>
           </Nav>
 
-          <Form className="d-flex">
+          <Form className="d-flex" onSubmit={handleSearch}>
             <InputGroup>
               <Form.Control
                 type="search"
-                placeholder=""
+                placeholder="Rechercher un artisan..."
                 aria-label="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 style={{
                   borderTopRightRadius: 0,
                   borderBottomRightRadius: 0,
@@ -80,6 +95,7 @@ function Header() {
                 }}
               />
               <Button
+                type="submit"
                 variant="outline-secondary"
                 style={{
                   borderTopLeftRadius: 0,
