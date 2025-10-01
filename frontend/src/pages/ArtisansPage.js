@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Spinner } from "react-bootstrap";
 import { Link, useSearchParams } from "react-router-dom";
+import SEO from "../components/SEO";
 
 function ArtisansPage() {
   const [artisans, setArtisans] = useState([]);
@@ -103,8 +104,42 @@ function ArtisansPage() {
     }
   };
 
+  const getSEOTitle = () => {
+    const searchTerm = searchParams.get("search");
+    const category = searchParams.get("category");
+
+    if (searchTerm) {
+      return `Recherche "${searchTerm}" - Artisans`;
+    } else if (category) {
+      return `Artisans ${category} - Auvergne-Rhône-Alpes`;
+    } else {
+      return "Liste des artisans - Auvergne-Rhône-Alpes";
+    }
+  };
+
+  const getSEODescription = () => {
+    const searchTerm = searchParams.get("search");
+    const category = searchParams.get("category");
+
+    if (searchTerm) {
+      return `Découvrez les artisans correspondant à votre recherche "${searchTerm}" en Auvergne-Rhône-Alpes. Trouvez l'artisan qu'il vous faut parmi notre sélection qualifiée.`;
+    } else if (category) {
+      return `Trouvez les meilleurs artisans en ${category} dans la région Auvergne-Rhône-Alpes. Contactez directement les professionnels qualifiés près de chez vous.`;
+    } else {
+      return "Découvrez tous nos artisans qualifiés en Auvergne-Rhône-Alpes. Alimentation, fabrication, services, bâtiment - trouvez l'artisan qu'il vous faut.";
+    }
+  };
+
   return (
     <Container className="py-4">
+      <SEO
+        title={getSEOTitle()}
+        description={getSEODescription()}
+        keywords={`artisans, ${
+          searchParams.get("category") || "tous métiers"
+        }, Auvergne-Rhône-Alpes, artisanat, professionnels`}
+        url={`https://trouve-ton-artisan.fr/artisans${window.location.search}`}
+      />
       <Row className="mb-4">
         <Col>
           <h1 className="text-primary">{getPageTitle()}</h1>
