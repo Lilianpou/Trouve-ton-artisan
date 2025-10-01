@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import ArtisansPage from "./pages/ArtisansPage";
 import ArtisanDetail from "./pages/ArtisanDetail";
+import NotFound from "./pages/NotFound";
 import MentionsLegales from "./pages/MentionsLegales";
 import DonneesPersonnelles from "./pages/DonneesPersonnelles";
 import Accessibilite from "./pages/Accessibilite";
@@ -37,14 +38,7 @@ function App() {
             />
             <Route path="/cookies" element={<Cookies />} />
             <Route path="/accessibilite" element={<Accessibilite />} />
-            <Route
-              path="*"
-              element={
-                <div className="container py-5">
-                  <h1>Page 404 - Page non trouvée</h1>
-                </div>
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
         <Footer />

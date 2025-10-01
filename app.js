@@ -7,6 +7,7 @@ var cors = require("cors");
 // Routes API
 var artisansRouter = require("./routes/api/artisans");
 var categoriesRouter = require("./routes/api/categories");
+var contactRouter = require("./routes/api/contact");
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(cookieParser());
 // Routes API uniquement
 app.use("/api/artisans", artisansRouter);
 app.use("/api/categories", categoriesRouter);
+app.use("/api/contact", contactRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
