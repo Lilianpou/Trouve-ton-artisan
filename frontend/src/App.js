@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import ArtisansPage from "./pages/ArtisansPage";
+import ArtisanDetail from "./pages/ArtisanDetail";
 import MentionsLegales from "./pages/MentionsLegales";
 import DonneesPersonnelles from "./pages/DonneesPersonnelles";
 import Accessibilite from "./pages/Accessibilite";
@@ -20,14 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/artisans" element={<ArtisansPage />} />
-            <Route
-              path="/artisans/:id"
-              element={
-                <div className="container py-5">
-                  <h1>Page artisan détaillée (à implémenter)</h1>
-                </div>
-              }
-            />
+            <Route path="/artisans/:id" element={<ArtisanDetail />} />
             <Route
               path="/categories"
               element={

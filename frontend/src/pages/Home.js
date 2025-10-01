@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [artisans, setArtisans] = useState([]);
@@ -185,28 +186,48 @@ function Home() {
                     className="mb-4"
                     key={artisan.id_artisan || index}
                   >
-                    <div className="card h-100 bg-primary text-white">
-                      <div className="card-body text-center">
-                        <h5 className="card-title mb-3">
-                          {artisan.artisan_nom ||
-                            artisan.nom ||
-                            "Nom indisponible"}
-                        </h5>
-                        <div className="mb-2">
-                          {renderStars(artisan.note || 5)}
+                    <Link
+                      to={`/artisans/${artisan.id_artisan}`}
+                      className="text-decoration-none"
+                    >
+                      <div
+                        className="card h-100 bg-primary text-white"
+                        style={{
+                          cursor: "pointer",
+                          transition: "transform 0.2s, box-shadow 0.2s",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.transform = "translateY(-5px)";
+                          e.currentTarget.style.boxShadow =
+                            "0 8px 25px rgba(0,0,0,0.2)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.transform = "translateY(0)";
+                          e.currentTarget.style.boxShadow = "none";
+                        }}
+                      >
+                        <div className="card-body text-center">
+                          <h5 className="card-title mb-3">
+                            {artisan.artisan_nom ||
+                              artisan.nom ||
+                              "Nom indisponible"}
+                          </h5>
+                          <div className="mb-2">
+                            {renderStars(artisan.note || 5)}
+                          </div>
+                          <p className="card-text">
+                            <strong>Spécialité :</strong>
+                            <br />
+                            {artisan.specialite || "Non spécifié"}
+                          </p>
+                          <p className="card-text">
+                            <strong>Localisation :</strong>
+                            <br />
+                            {artisan.ville || "Non spécifié"}
+                          </p>
                         </div>
-                        <p className="card-text">
-                          <strong>Spécialité :</strong>
-                          <br />
-                          {artisan.specialite || "Non spécifié"}
-                        </p>
-                        <p className="card-text">
-                          <strong>Localisation :</strong>
-                          <br />
-                          {artisan.ville || "Non spécifié"}
-                        </p>
                       </div>
-                    </div>
+                    </Link>
                   </Col>
                 ))}
               </Row>
