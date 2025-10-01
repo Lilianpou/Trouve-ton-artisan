@@ -25,10 +25,10 @@ npm install
 3. **Démarrer le serveur**
 
 ```bash
-npm start
+npm run dev-full
 ```
 
-Le serveur démarre sur `http://localhost:4000`
+Le serveur démarre sur `http://localhost:3000`
 
 ## API Endpoints
 
@@ -48,19 +48,19 @@ Le serveur démarre sur `http://localhost:4000`
 **Récupérer tous les artisans :**
 
 ```
-GET http://localhost:4000/api/artisans
+GET http://localhost:3000/api/artisans
 ```
 
 **Rechercher :**
 
 ```
-GET http://localhost:4000/api/artisans/search?q=Lyon
+GET http://localhost:3000/api/artisans/search?q=Lyon
 ```
 
 **Par catégorie :**
 
 ```
-GET http://localhost:4000/api/artisans/category/Alimentation
+GET http://localhost:3000/api/artisans/category/Alimentation
 ```
 
 ## Structure des données
