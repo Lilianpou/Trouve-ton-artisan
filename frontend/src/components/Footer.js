@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -9,10 +10,50 @@ function Footer() {
           <Col md={6}>
             <h6>Pages légales</h6>
             <ul className="list-unstyled">
-              <li>mentions légales</li>
-              <li>données personnelles</li>
-              <li>accessibilité</li>
-              <li>cookies</li>
+              <li>
+                <Link
+                  to="/mentions-legales"
+                  className="text-white text-decoration-none"
+                  style={{ opacity: 0.9 }}
+                  onMouseEnter={(e) => (e.target.style.opacity = 1)}
+                  onMouseLeave={(e) => (e.target.style.opacity = 0.9)}
+                >
+                  mentions légales
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/donnees-personnelles"
+                  className="text-white text-decoration-none"
+                  style={{ opacity: 0.9 }}
+                  onMouseEnter={(e) => (e.target.style.opacity = 1)}
+                  onMouseLeave={(e) => (e.target.style.opacity = 0.9)}
+                >
+                  données personnelles
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/accessibilite"
+                  className="text-white text-decoration-none"
+                  style={{ opacity: 0.9 }}
+                  onMouseEnter={(e) => (e.target.style.opacity = 1)}
+                  onMouseLeave={(e) => (e.target.style.opacity = 0.9)}
+                >
+                  accessibilité
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/cookies"
+                  className="text-white text-decoration-none"
+                  style={{ opacity: 0.9 }}
+                  onMouseEnter={(e) => (e.target.style.opacity = 1)}
+                  onMouseLeave={(e) => (e.target.style.opacity = 0.9)}
+                >
+                  cookies
+                </Link>
+              </li>
             </ul>
           </Col>
           <Col md={6} className="text-end">
