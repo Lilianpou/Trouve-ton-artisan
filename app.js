@@ -15,8 +15,9 @@ var app = express();
 app.use(
   cors({
     origin: [
-    "http://localhost:3000",
-    'https://trouve-ton-artisan-chi.vercel.app/'],
+      "http://localhost:3000",
+      "https://trouve-ton-artisan-chi.vercel.app",
+    ],
     // URL du frontend React
     credentials: true,
   })

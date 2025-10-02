@@ -13,7 +13,9 @@ function Home() {
       try {
         setLoading(true);
         // Utiliser l'endpoint /top pour récupérer les artisans top de la base de données
-        const response = await fetch("http://localhost:4000/api/artisans/top");
+        const response = await fetch(
+          "https://trouve-ton-artisan-cbsg.onrender.com/api/artisans/top"
+        );
 
         if (!response.ok) {
           throw new Error(`Erreur HTTP: ${response.status}`);
@@ -29,7 +31,7 @@ function Home() {
           if (artisansToShow.length === 0) {
             // Si pas d'artisans top, récupérer tous les artisans et prendre les 3 premiers
             const allResponse = await fetch(
-              "http://localhost:4000/api/artisans"
+              "https://trouve-ton-artisan-cbsg.onrender.com/api/artisans"
             );
             const allResult = await allResponse.json();
             if (allResult.success && allResult.data) {
