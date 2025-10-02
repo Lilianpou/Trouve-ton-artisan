@@ -1,11 +1,11 @@
 -- Création de la base de données pour Trouve ton artisan
-CREATE DATABASE IF NOT EXISTS trouve_ton_artisan;
+CREATE DATABASE IF NOT EXISTS trouve-ton-artisan_database;
 
 -- Utilisation de la base de données
-USE trouve_ton_artisan;
+USE trouve-ton-artisan_database;
 
 
-CREATE TABLE `trouve-ton-artisan`.`artisan` 
+CREATE TABLE `trouve-ton-artisan_database`.`artisan` 
 (`id_artisan` INT NOT NULL AUTO_INCREMENT , 
 `artisan_nom` VARCHAR(50) NOT NULL , 
 `specialite` VARCHAR(50) NOT NULL , 
