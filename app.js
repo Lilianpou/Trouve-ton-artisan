@@ -14,7 +14,9 @@ var app = express();
 // Configuration CORS
 app.use(
   cors({
-    origin: "http://localhost:3000", // URL du frontend React
+    origin: 
+    "http://localhost:3000",
+    'https://trouve-ton-artisan-chi.vercel.app/'// URL du frontend React
     credentials: true,
   })
 );
