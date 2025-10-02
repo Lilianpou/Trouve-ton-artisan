@@ -3,7 +3,7 @@ const mysql = require("mysql2");
 // Configuration de la base de données
 const dbConfig = {
   host: "mysql-trouve-ton-artisan.alwaysdata.net",
-  port: 17010, // Port MySQL par défaut
+  port: 3306, // Port MySQL par défaut
   user: "433303", // Remplacez par votre nom d'utilisateur MySQL
   password: "AVNS_1v1jS_MDDEhi2ROPIc7", // Remplacez par votre mot de passe MySQL
   database: "trouve-ton-artisan_database",
