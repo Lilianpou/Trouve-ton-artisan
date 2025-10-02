@@ -2,11 +2,11 @@ const mysql = require("mysql2");
 
 // Configuration de la base de données
 const dbConfig = {
-  host: "localhost",
-  port: 3306, // Port MySQL par défaut
-  user: "root", // Remplacez par votre nom d'utilisateur MySQL
-  password: "", // Remplacez par votre mot de passe MySQL
-  database: "trouve-ton-artisan",
+  host: "trouve-ton-artisan-a11a111a.k.aivencloud.com",
+  port: 17010, // Port MySQL par défaut
+  user: "avnadmin", // Remplacez par votre nom d'utilisateur MySQL
+  password: "AVNS_1v1jS_MDDEhi2ROPIc7", // Remplacez par votre mot de passe MySQL
+  database: "defaultdb",
 };
 
 // Création du pool de connexions
