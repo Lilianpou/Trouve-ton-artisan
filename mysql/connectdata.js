@@ -2,11 +2,11 @@ const mysql = require("mysql2");
 
 // Configuration de la base de données
 const dbConfig = {
-  host: "trouve-ton-artisan-a11a111a.k.aivencloud.com",
+  host: "mysql-trouve-ton-artisan.alwaysdata.net",
   port: 17010, // Port MySQL par défaut
-  user: "avnadmin", // Remplacez par votre nom d'utilisateur MySQL
+  user: "433303", // Remplacez par votre nom d'utilisateur MySQL
   password: "AVNS_1v1jS_MDDEhi2ROPIc7", // Remplacez par votre mot de passe MySQL
-  database: "defaultdb",
+  database: "trouve-ton-artisan_database",
 };
 
 // Création du pool de connexions
