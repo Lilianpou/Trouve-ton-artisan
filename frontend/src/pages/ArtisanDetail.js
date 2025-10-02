@@ -54,7 +54,7 @@ function ArtisanDetail() {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:4000/api/artisans/${id}`
+          `https://trouve-ton-artisan-cbsg.onrender.com/api/artisans/${id}`
         );
         if (!response.ok) {
           throw new Error("Artisan non trouvé");
@@ -88,17 +88,20 @@ function ArtisanDetail() {
 
     try {
       // Simuler l'envoi d'email (vous devrez implémenter cela côté backend)
-      const response = await fetch(`http://localhost:4000/api/contact`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...contactForm,
-          artisan_email: artisan.email,
-          artisan_nom: artisan.artisan_nom,
-        }),
-      });
+      const response = await fetch(
+        `https://trouve-ton-artisan-cbsg.onrender.com/api/contact`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...contactForm,
+            artisan_email: artisan.email,
+            artisan_nom: artisan.artisan_nom,
+          }),
+        }
+      );
 
       if (response.ok) {
         setEmailSent(true);

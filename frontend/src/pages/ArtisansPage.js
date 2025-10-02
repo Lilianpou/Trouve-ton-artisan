@@ -36,7 +36,9 @@ function ArtisansPage() {
     const fetchArtisans = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:4000/api/artisans");
+        const response = await fetch(
+          "https://trouve-ton-artisan-cbsg.onrender.com/api/artisans"
+        );
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des artisans");
         }
